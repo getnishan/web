@@ -1,0 +1,84 @@
+{
+  "colors": {
+    "primary": {
+      "base": "#84BC54",
+      "dark": "#6DA540",
+      "light": "#E6F3DC"
+    },
+    "secondary": {
+      "base": "#0F172A",
+      "muted": "#1E293B",
+      "contrast": "#FFFFFF"
+    },
+    "accent": {
+      "orange": "#F97316",
+      "blue": "#3B82F6"
+    },
+    "neutral": {
+      "background": "#F8FAFC",
+      "paper": "#FFFFFF",
+      "body": "#020617",
+      "muted": "#64748B",
+      "line": "#E2E8F0"
+    }
+  },
+  "typography": {
+    "fontFamily": {
+      "brand": "'Nunito', 'Inter', sans-serif"
+    },
+    "scale": {
+      "eyebrow": {
+        "size": "0.85rem",
+        "weight": 700,
+        "tracking": "0.08em"
+      },
+      "display": {
+        "size": "clamp(2.5rem, 6vw, 4.5rem)",
+        "lineHeight": 1.05,
+        "weight": 800,
+        "tracking": "-0.04em"
+      },
+      "subhead": {
+        "size": "1.125rem",
+        "lineHeight": 1.6,
+        "weight": 500
+      },
+      "body": {
+        "size": "1rem",
+        "lineHeight": 1.7,
+        "weight": 400
+      }
+    }
+  },
+  "spacing": {
+    "xxs": "0.25rem",
+    "xs": "0.5rem",
+    "sm": "0.75rem",
+    "md": "1rem",
+    "lg": "1.5rem",
+    "xl": "2rem",
+    "xxl": "3rem"
+  },
+  "radii": {
+    "pill": "9999px",
+    "card": "20px",
+    "section": "48px"
+  },
+  "layout": {
+    "maxWidth": "1200px",
+    "contentWidth": "960px",
+    "gridGap": "24px"
+  },
+  "components": {
+    "card": {
+      "padding": "32px",
+      "shadow": "0 20px 60px rgba(15, 23, 42, 0.08)"
+    },
+    "button": {
+      "height": "56px",
+      "paddingX": "32px",
+      "fontWeight": 700,
+      "radius": "9999px"
+    }
+  }
+}

@@ -1,0 +1,56 @@
+================================================================================
+AVETI LEARNING - REQUIRED FILES CHECKLIST
+================================================================================
+
+Verify all these files exist before deployment:
+
+✓ index.html          - Main application form page
+✓ style.css           - Stylesheet with mobile-responsive design
+✓ script.js           - JavaScript for form and video recording
+✓ db.php              - Database connection (UPDATE CREDENTIALS!)
+✓ upload.php          - Form submission and file upload handler
+✓ admin_login.php     - Admin panel login (CHANGE PASSWORD!)
+✓ admin.php           - Admin dashboard with table and filters
+✓ export_csv.php       - CSV export functionality
+✓ export_pdf.php       - PDF export functionality
+✓ logout.php          - Admin logout handler
+✓ database.sql         - Database schema
+
+DIRECTORIES:
+✓ uploads/            - Main uploads directory
+  └── videos/         - Video files storage (created automatically)
+
+SETUP FILES:
+✓ README.txt          - Complete VPS setup instructions
+✓ setup_directories.php - Run once to create directories
+
+================================================================================
+BEFORE DEPLOYMENT CHECKLIST:
+================================================================================
+
+1. [ ] Update db.php with your database credentials
+2. [ ] Change admin password in admin_login.php (line 18)
+3. [ ] Create database and import database.sql
+4. [ ] Run setup_directories.php or create uploads/videos/ manually
+5. [ ] Set file permissions (chmod 755 uploads, chmod 755 uploads/videos)
+6. [ ] Configure PHP upload limits (upload_max_filesize, post_max_size)
+7. [ ] Test form submission
+8. [ ] Test admin panel login
+9. [ ] Test video playback
+10. [ ] Test CSV export
+11. [ ] Test PDF export
+
+================================================================================
+TECHNICAL DETAILS:
+================================================================================
+
+- Uses mysqli for database operations
+- All paths are relative
+- Tailwind CDN for admin panel UI
+- Custom CSS for main application form
+- Video storage: uploads/videos/
+- Session-based admin authentication
+- Prepared statements for SQL security
+
+================================================================================
+

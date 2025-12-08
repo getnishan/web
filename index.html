@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aveti Learning - Three-Month Residential Program</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <div class="logo-icon-triangle">A</div>
+                <div class="logo-text-container">
+                    <span class="logo-text-main">AVETI</span>
+                    <span class="logo-text-sub">LEARNING</span>
+                </div>
+            </div>
+            <button class="btn-apply-header" onclick="scrollToForm()">Apply Now</button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1 class="hero-title scroll-float">Aveti's <br> Three-Month Residential Program</h1>
+            <p class="hero-description scroll-float">Gain real-world skills, hands-on experience, and career opportunities in a fully residential, no-fee program designed for graduates.</p>
+            <div class="hero-buttons scroll-float">
+                <button class="btn btn-primary" onclick="scrollToForm()">Apply Now <span class="arrow-icon">→</span></button>
+               
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Section -->
+    <section class="video-section">
+        <div class="container">
+            <span class="section-label scroll-float">PROGRAM STORY</span>
+            <h2 class="section-title scroll-float">Watch Program Overview</h2>
+            <div class="video-container scroll-float">
+                <div class="video-placeholder">
+                    <div class="play-button">▶</div>
+                    <div class="video-overlay-text">
+                        <h3 class="video-overlay-title">Watch Program Overview</h3>
+                        <p class="video-overlay-description">Discover how our residential training program transforms graduates into industry-ready professionals.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Program Benefits Section -->
+    <section class="benefits-section">
+        <div class="container">
+            <div class="benefits-layout">
+                <div class="benefits-main-card scroll-float">
+                    <span class="section-label">PROGRAM BENEFITS</span>
+                    <h2 class="benefits-main-title">A training program designed for your success.</h2>
+                   
+                    <button class="btn btn-secondary" onclick="window.open('https://avetilearning.com/brochure.pdf', '_blank')">Download Brochure <span class="arrow-icon">→</span></button>
+                </div>
+                <div class="benefit-card-right tilt-card scroll-float">
+                    <div class="card-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 6H16V4C16 2.89 15.11 2 14 2H10C8.89 2 8 2.89 8 4V6H4C2.89 6 2.01 6.89 2.01 8L2 19C2 20.11 2.89 21 4 21H20C21.11 21 22 20.11 22 19V8C22 6.89 21.11 6 20 6ZM10 4H14V6H10V4ZM20 19H4V8H20V19Z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <h3>Job Opportunities</h3>
+                    <p>Identify your top performers, and ensure that every person to succeed with their work.</p>
+                </div>
+                <div class="benefits-grid-bottom">
+                    <div class="benefit-card tilt-card scroll-float">
+                        <div class="card-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/>
+                                <circle cx="12" cy="12" r="6" stroke="currentColor" stroke-width="2" fill="none"/>
+                                <circle cx="12" cy="12" r="2" fill="currentColor"/>
+                            </svg>
+                        </div>
+                        <h3>Completely Free</h3>
+                        <p>Get feedback from everyone in the organization and find insights to build the.</p>
+                    </div>
+                    <div class="benefit-card tilt-card scroll-float">
+                        <div class="card-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M3 18L9 12L13 16L21 8V10L13 18L9 14L3 20V18Z" fill="currentColor"/>
+                                <path d="M3 18H21V20H3V18Z" fill="currentColor"/>
+                            </svg>
+                        </div>
+                        <h3>Practical Learning</h3>
+                        <p>Utilize advanced people analytics to increase impact and innovation.</p>
+                    </div>
+                    <div class="benefit-card tilt-card scroll-float">
+                        <div class="card-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M10 20V14H14V20H19V12H22L12 3L2 12H5V20H10Z" fill="currentColor"/>
+                                <path d="M12 8L16 12H14V18H10V12H8L12 8Z" fill="currentColor" opacity="0.5"/>
+                            </svg>
+                        </div>
+                        <h3>Career Growth</h3>
+                        <p>Increase growth and engagement with SaaSify's dynamic employee.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Application Form Modal -->
+    <div id="applicationFormModal" class="application-form-modal">
+        <div class="application-form-modal-content">
+            <span class="close-form-modal">&times;</span>
+            <h2 class="form-modal-title">Application Form</h2>
+            <p class="form-modal-subtitle">Fill out the form below to apply for our Three-Month Residential Program</p>
+            
+            <form id="applicationForm" class="application-form" enctype="multipart/form-data">
+                <!-- Name -->
+                <div class="form-group">
+                    <label for="name">Name <span class="required">*</span></label>
+                    <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+                </div>
+
+                <!-- Email -->
+                <div class="form-group">
+                    <label for="email">Mail ID</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email address (optional)">
+                </div>
+
+                <!-- Phone -->
+                <div class="form-group">
+                    <label for="phone">Phone No. <span class="required">*</span></label>
+                    <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+                </div>
+
+                <!-- Age -->
+                <div class="form-group">
+                    <label for="age">Age <span class="required">*</span></label>
+                    <input type="number" id="age" name="age" min="18" max="100" placeholder="Enter your age" required>
+                </div>
+
+                <!-- Educational Qualification -->
+                <div class="form-group">
+                    <label for="qualification">Educational Qualification <span class="required">*</span></label>
+                    <input type="text" id="qualification" name="qualification" placeholder="e.g., B.Tech, B.Sc, etc." required>
+                </div>
+
+                <!-- Year of Graduation -->
+                <div class="form-group">
+                    <label for="graduation_year">Year of Graduation <span class="required">*</span></label>
+                    <input type="number" id="graduation_year" name="graduation_year" min="2000" max="2025" placeholder="e.g., 2023" required>
+                </div>
+
+                <!-- Current Location -->
+                <div class="form-group">
+                    <label for="location">Current Location (City/State) <span class="required">*</span></label>
+                    <input type="text" id="location" name="location" placeholder="e.g., Bangalore, Karnataka" required>
+                </div>
+
+                <!-- Motivation for Joining -->
+                <div class="form-group">
+                    <label for="motivation">Motivation for Joining <span class="required">*</span></label>
+                    <div class="motivation-video-section">
+                        <button type="button" class="btn-record-video" id="recordVideoBtn">
+                            Record Video →
+                        </button>
+                        <button type="button" class="view-sample-link" id="viewSampleVideoBtn">
+                            View Sample Video
+                        </button>
+                    </div>
+                    <div id="videoPreview" class="video-preview" style="display: none;">
+                        <video id="previewVideo" autoplay muted playsinline></video>
+                        <div class="video-controls">
+                            <button type="button" class="btn btn-record" id="startRecordBtn">Start Recording</button>
+                            <button type="button" class="btn btn-stop" id="stopRecordBtn" style="display: none;">Stop Recording</button>
+                            <button type="button" class="btn btn-cancel" id="cancelVideoBtn">Cancel</button>
+                        </div>
+                        <div id="recordedVideoContainer" style="display: none;">
+                            <video id="recordedVideo" controls></video>
+                            <div class="video-actions">
+                                <button type="button" class="btn btn-primary" id="submitVideoBtn">Submit Video</button>
+                                <button type="button" class="btn btn-secondary" id="retakeVideoBtn">Retake</button>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="videoBlob" name="video_blob">
+                </div>
+            
+
+                <!-- Submit Button -->
+                <div class="form-group form-submit-group">
+                    <button type="submit" class="btn btn-primary btn-submit">Submit Application</button>
+                </div>
+
+                <!-- Success Message -->
+                <div id="successMessage" class="success-message" style="display: none;">
+                    <h3>✓ Application Submitted Successfully!</h3>
+                    <p>Thank you for your interest. We will get back to you soon.</p>
+                </div>
+
+                <!-- Error Message -->
+                <div id="errorMessage" class="error-message" style="display: none;">
+                    <p id="errorText"></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-left">
+                    <div class="footer-logo">
+                        <span class="footer-logo-icon">A</span>
+                        <span class="footer-logo-text">Aveti Learning</span>
+                    </div>
+                    <p>Empowering careers through practical learning, mentorship, and real-world experiences.</p>
+                    <p class="copyright">© 2025 Aveti Learning. All rights reserved.</p>
+                </div>
+                <div class="footer-middle">
+                    <div class="social-icons">
+                        <a href="#" class="social-icon" aria-label="Facebook">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Twitter">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="LinkedIn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Instagram">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-right">
+                    <h3>
+                        <span>Contact</span>
+                    </h3>
+                    <div class="contact-info">
+                        <p>📧 info@avetilearning.com</p>
+                        <p>📞 +91 123 456 7890</p>
+                        <p>📍 Bangalore, Karnataka, India</p>
+                    </div>
+                    <div class="footer-links">
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Terms of Service</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Video Recording Modal -->
+    <div id="videoModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Record Your Video</h2>
+            <div id="modalVideoPreview" class="modal-video-preview">
+                <video id="modalPreviewVideo" autoplay muted playsinline></video>
+                <div class="modal-video-controls">
+                    <button type="button" class="btn btn-record" id="modalStartRecordBtn">Start Recording</button>
+                    <button type="button" class="btn btn-stop" id="modalStopRecordBtn" style="display: none;">Stop Recording</button>
+                    <div class="recording-indicator" id="recordingIndicator" style="display: none;">
+                        <span class="recording-dot"></span>
+                        <span>Recording...</span>
+                    </div>
+                </div>
+                <div id="modalRecordedVideoContainer" style="display: none;">
+                    <video id="modalRecordedVideo" controls></video>
+                    <div class="modal-video-actions">
+                        <button type="button" class="btn btn-primary" id="modalSubmitVideoBtn">Submit Video</button>
+                        <button type="button" class="btn btn-secondary" id="modalRetakeVideoBtn">Retake</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sample Video Modal -->
+    <div id="sampleVideoModal" class="modal sample-video-modal">
+        <div class="modal-content sample-video-modal-content">
+            <span class="close-sample-modal">&times;</span>
+            <div class="sample-video-header">
+                <h2 class="sample-video-title">Sample Application Video</h2>
+                <p class="sample-video-subtitle">Watch this example to understand how to record your motivation video</p>
+            </div>
+            <div class="sample-video-container">
+                <iframe id="sampleVideoIframe" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
