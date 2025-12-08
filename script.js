@@ -155,6 +155,7 @@ async function startCamera() {
         
         if (modalPreviewVideo) {
             modalPreviewVideo.srcObject = mediaStream;
+            modalPreviewVideo.style.display = 'block';
             // Support portrait mode
             modalPreviewVideo.style.objectFit = 'contain';
             modalPreviewVideo.style.width = '100%';
@@ -182,6 +183,11 @@ async function startCamera() {
             });
         }
         
+        // Hide recorded video container when starting camera
+        if (modalRecordedVideoContainer) {
+            modalRecordedVideoContainer.style.display = 'none';
+        }
+        
         // Enable start recording button only after camera is ready
         if (modalStartRecordBtn) {
             modalStartRecordBtn.style.display = 'inline-block';
@@ -189,9 +195,6 @@ async function startCamera() {
         }
         if (modalStopRecordBtn) {
             modalStopRecordBtn.style.display = 'none';
-        }
-        if (modalRecordedVideoContainer) {
-            modalRecordedVideoContainer.style.display = 'none';
         }
         if (recordingIndicator) {
             recordingIndicator.style.display = 'none';
@@ -292,13 +295,30 @@ function startRecording() {
         recordedBlob = new Blob(recordedChunks, { type: 'video/webm' });
         const videoURL = URL.createObjectURL(recordedBlob);
         
+        // Stop camera stream after recording stops
+        if (mediaStream) {
+            mediaStream.getTracks().forEach(track => track.stop());
+            mediaStream = null;
+        }
+        
+        // Hide preview video (camera feed)
+        if (modalPreviewVideo) {
+            modalPreviewVideo.srcObject = null;
+            modalPreviewVideo.style.display = 'none';
+        }
+        
+        // Show recorded video
         if (modalRecordedVideo) {
             modalRecordedVideo.src = videoURL;
-            modalRecordedVideoContainer.style.display = 'block';
+            modalRecordedVideo.style.display = 'block';
             // Support portrait mode
             modalRecordedVideo.style.objectFit = 'contain';
             modalRecordedVideo.style.width = '100%';
             modalRecordedVideo.style.maxHeight = '70vh';
+        }
+        
+        if (modalRecordedVideoContainer) {
+            modalRecordedVideoContainer.style.display = 'block';
         }
         
         if (modalStartRecordBtn) {
@@ -423,15 +443,23 @@ if (modalSubmitVideoBtn) {
 
 // Retake video
 if (modalRetakeVideoBtn) {
-    modalRetakeVideoBtn.addEventListener('click', () => {
+    modalRetakeVideoBtn.addEventListener('click', async () => {
+        // Clear recorded video
         recordedBlob = null;
         recordedChunks = [];
         modalRecordedVideoContainer.style.display = 'none';
-        modalStartRecordBtn.style.display = 'inline-block';
         
         if (modalRecordedVideo) {
             modalRecordedVideo.src = '';
+            URL.revokeObjectURL(modalRecordedVideo.src);
         }
+        
+        // Restart camera
+        if (modalPreviewVideo) {
+            modalPreviewVideo.style.display = 'block';
+        }
+        
+        await startCamera();
     });
 }
 
