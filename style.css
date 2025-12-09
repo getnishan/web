@@ -934,6 +934,85 @@ button.view-sample-link::before {
     position: relative;
 }
 
+/* Video Instruction Modal */
+.instruction-modal-content {
+    text-align: center;
+    padding: 40px 30px;
+}
+
+.instruction-modal-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin: 0 0 15px 0;
+}
+
+.instruction-modal-subtitle {
+    font-size: 1.1rem;
+    color: var(--text-medium);
+    line-height: 1.6;
+    margin: 0 0 30px 0;
+}
+
+.instruction-modal-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.instruction-modal-actions .btn {
+    min-width: 200px;
+    padding: 14px 32px;
+    font-size: 1.1rem;
+}
+
+/* Mobile styles for instruction modal */
+@media (max-width: 768px) {
+    .instruction-modal-content {
+        padding: 30px 20px;
+        margin: 10% auto;
+        max-width: 95%;
+    }
+    
+    .instruction-modal-title {
+        font-size: 1.6rem;
+        margin-bottom: 12px;
+    }
+    
+    .instruction-modal-subtitle {
+        font-size: 1rem;
+        margin-bottom: 25px;
+        line-height: 1.5;
+    }
+    
+    .instruction-modal-actions {
+        margin-top: 20px;
+    }
+    
+    .instruction-modal-actions .btn {
+        width: 100%;
+        min-width: auto;
+        padding: 14px 24px;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .instruction-modal-content {
+        padding: 25px 18px;
+        margin: 5% auto;
+    }
+    
+    .instruction-modal-title {
+        font-size: 1.4rem;
+    }
+    
+    .instruction-modal-subtitle {
+        font-size: 0.95rem;
+    }
+}
+
 .close-modal {
     position: absolute;
     right: 20px;
