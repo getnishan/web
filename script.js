@@ -280,16 +280,16 @@ function startRecording() {
         clearInterval(recordingTimeInterval);
     }
     if (timerDisplay) {
-        timerDisplay.textContent = '00:00:00';
+        timerDisplay.textContent = '00:00';
     }
     recordingTimeInterval = setInterval(() => {
         const elapsed = Date.now() - recordingStartTime;
         const totalSeconds = Math.floor(elapsed / 1000);
-        const hours = Math.floor(totalSeconds / 3600);
-        const mins = Math.floor((totalSeconds % 3600) / 60);
+        const mins = Math.floor(totalSeconds / 60);
         const secs = totalSeconds % 60;
         if (timerDisplay) {
-            timerDisplay.textContent = `${String(hours).padStart(2, '0')}:${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+            // Simplified format: MM:SS
+            timerDisplay.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
         }
     }, 100);
     
@@ -357,7 +357,7 @@ function startRecording() {
             recordingIndicator.style.display = 'none';
         }
         if (timerDisplay) {
-            timerDisplay.textContent = '00:00:00';
+            timerDisplay.textContent = '00:00';
         }
         
         // Hide record button (will show video actions instead)
@@ -392,7 +392,7 @@ function startRecording() {
             recordingTimeInterval = null;
         }
         if (timerDisplay) {
-            timerDisplay.textContent = '00:00:00';
+            timerDisplay.textContent = '00:00';
         }
         alert('Failed to start recording. Please try again.');
         return;
@@ -430,7 +430,7 @@ function stopRecording() {
     }
     
     if (timerDisplay) {
-        timerDisplay.textContent = '00:00:00';
+        timerDisplay.textContent = '00:00';
     }
     
     // Hide recording controls
@@ -480,7 +480,7 @@ function stopRecording() {
             recordingIndicator.style.display = 'none';
         }
         if (timerDisplay) {
-            timerDisplay.textContent = '00:00:00';
+            timerDisplay.textContent = '00:00';
         }
     }
 }
@@ -539,7 +539,7 @@ if (modalRetakeVideoBtn) {
         
         // Reset timer
         if (timerDisplay) {
-            timerDisplay.textContent = '00:00:00';
+            timerDisplay.textContent = '00:00';
         }
         
         // Restart camera

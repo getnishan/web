@@ -20,7 +20,7 @@
     overflow: hidden;
 }
 
-/* Top Bar - Recording Timer (iPhone Style Red Box) */
+/* Top Bar - Recording Timer (Simplified) */
 .camera-top-bar {
     position: absolute;
     top: 0;
@@ -36,22 +36,21 @@
 }
 
 .recording-timer-box {
-    background-color: #ff3b30;
-    padding: 6px 12px;
-    border-radius: 4px;
+    background-color: transparent;
+    padding: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    min-width: 90px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    min-width: auto;
 }
 
 .recording-timer-box span {
-    color: white;
-    font-size: 0.95rem;
+    color: #ff3b30;
+    font-size: 1.1rem;
     font-weight: 600;
     font-variant-numeric: tabular-nums;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 /* Close Button (Top Right) */
