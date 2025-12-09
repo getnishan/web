@@ -909,6 +909,19 @@ button.view-sample-link::before {
     backdrop-filter: blur(5px);
 }
 
+/* Video Modal Specific Overrides */
+#videoModal {
+    background-color: #000;
+    backdrop-filter: none;
+}
+
+@media (max-width: 768px) {
+    #videoModal {
+        background-color: #000 !important;
+        backdrop-filter: none !important;
+    }
+}
+
 .modal-content {
     background-color: white;
     margin: 5% auto;
@@ -1681,23 +1694,41 @@ button.view-sample-link::before {
     aspect-ratio: 16 / 9;
 }
 
-/* Mobile: Native Camera UI - Styles handled in camera-ui.css */
+/* Mobile: Native Camera UI - Full Screen */
 @media (max-width: 768px) {
     #videoModal {
         padding: 0;
         margin: 0;
         background-color: #000;
+        backdrop-filter: none;
     }
     
     #videoModal .modal-content.video-recorder-container {
-        width: 100vw;
-        height: 100vh;
-        max-width: 100vw;
-        max-height: 100vh;
-        margin: 0;
-        padding: 0;
-        border-radius: 0;
-        background-color: #000;
+        width: 100vw !important;
+        height: 100vh !important;
+        max-width: 100vw !important;
+        max-height: 100vh !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border-radius: 0 !important;
+        background-color: #000 !important;
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+    }
+    
+    /* Override default modal styles */
+    #videoModal .modal-content {
+        background-color: #000 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border-radius: 0 !important;
+        max-width: 100vw !important;
+        width: 100vw !important;
+        max-height: 100vh !important;
+        height: 100vh !important;
     }
 }
 
