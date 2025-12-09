@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // Video Recording Modal
 const videoModal = document.getElementById('videoModal');
 const recordVideoBtn = document.getElementById('recordVideoBtn');
-const closeModal = document.querySelector('.close-modal');
+const closeModal = document.getElementById('cameraCloseBtn');
 const modalPreviewVideo = document.getElementById('modalPreviewVideo');
 const modalStartRecordBtn = document.getElementById('modalStartRecordBtn');
 const modalStopRecordBtn = document.getElementById('modalStopRecordBtn');
@@ -73,7 +73,10 @@ const modalRecordedVideo = document.getElementById('modalRecordedVideo');
 const modalRecordedVideoContainer = document.getElementById('modalRecordedVideoContainer');
 const modalSubmitVideoBtn = document.getElementById('modalSubmitVideoBtn');
 const modalRetakeVideoBtn = document.getElementById('modalRetakeVideoBtn');
-const recordingIndicator = document.getElementById('recordingIndicator');
+const recordingIndicator = document.getElementById('recordingTimer');
+const timerDisplay = document.getElementById('timerDisplay');
+const modalVideoActions = document.getElementById('modalVideoActions');
+let recordingTimeInterval = null;
 
 // Open modal and start camera
 if (recordVideoBtn) {
@@ -265,11 +268,28 @@ function startRecording() {
         modalStartRecordBtn.style.display = 'none';
     }
     if (modalStopRecordBtn) {
-        modalStopRecordBtn.style.display = 'inline-block';
+        modalStopRecordBtn.style.display = 'flex';
     }
     if (recordingIndicator) {
         recordingIndicator.style.display = 'flex';
     }
+    
+    // Start timer
+    let seconds = 0;
+    if (recordingTimeInterval) {
+        clearInterval(recordingTimeInterval);
+    }
+    if (timerDisplay) {
+        timerDisplay.textContent = '00:00';
+    }
+    recordingTimeInterval = setInterval(() => {
+        seconds++;
+        const mins = Math.floor(seconds / 60);
+        const secs = seconds % 60;
+        if (timerDisplay) {
+            timerDisplay.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+        }
+    }, 1000);
     
     recordedChunks = [];
     
@@ -321,14 +341,28 @@ function startRecording() {
             modalRecordedVideoContainer.style.display = 'block';
         }
         
+        // Stop timer
+        if (recordingTimeInterval) {
+            clearInterval(recordingTimeInterval);
+            recordingTimeInterval = null;
+        }
+        
         if (modalStartRecordBtn) {
-            modalStartRecordBtn.style.display = 'none';
+            modalStartRecordBtn.style.display = 'flex';
         }
         if (modalStopRecordBtn) {
             modalStopRecordBtn.style.display = 'none';
         }
         if (recordingIndicator) {
             recordingIndicator.style.display = 'none';
+        }
+        if (timerDisplay) {
+            timerDisplay.textContent = '00:00';
+        }
+        
+        // Show video actions
+        if (modalVideoActions) {
+            modalVideoActions.style.display = 'flex';
         }
     };
     
@@ -340,13 +374,20 @@ function startRecording() {
         console.error('Error starting recording:', error);
         // Revert button state if recording fails to start
         if (modalStartRecordBtn) {
-            modalStartRecordBtn.style.display = 'inline-block';
+            modalStartRecordBtn.style.display = 'flex';
         }
         if (modalStopRecordBtn) {
             modalStopRecordBtn.style.display = 'none';
         }
         if (recordingIndicator) {
             recordingIndicator.style.display = 'none';
+        }
+        if (recordingTimeInterval) {
+            clearInterval(recordingTimeInterval);
+            recordingTimeInterval = null;
+        }
+        if (timerDisplay) {
+            timerDisplay.textContent = '00:00';
         }
         alert('Failed to start recording. Please try again.');
         return;
@@ -375,6 +416,16 @@ function stopRecording() {
     if (mediaRecorder.state === 'inactive') {
         console.warn('Recording is already stopped');
         return;
+    }
+    
+    // Stop timer
+    if (recordingTimeInterval) {
+        clearInterval(recordingTimeInterval);
+        recordingTimeInterval = null;
+    }
+    
+    if (timerDisplay) {
+        timerDisplay.textContent = '00:00';
     }
     
     // Immediately update button state
@@ -409,10 +460,13 @@ function stopRecording() {
         recordedChunks = [];
         recordedBlob = null;
         if (modalStartRecordBtn) {
-            modalStartRecordBtn.style.display = 'inline-block';
+            modalStartRecordBtn.style.display = 'flex';
         }
         if (modalRecordedVideoContainer) {
             modalRecordedVideoContainer.style.display = 'none';
+        }
+        if (modalVideoActions) {
+            modalVideoActions.style.display = 'none';
         }
     }
 }
@@ -452,6 +506,16 @@ if (modalRetakeVideoBtn) {
         if (modalRecordedVideo) {
             modalRecordedVideo.src = '';
             URL.revokeObjectURL(modalRecordedVideo.src);
+        }
+        
+        // Hide video actions
+        if (modalVideoActions) {
+            modalVideoActions.style.display = 'none';
+        }
+        
+        // Reset timer
+        if (timerDisplay) {
+            timerDisplay.textContent = '00:00';
         }
         
         // Restart camera

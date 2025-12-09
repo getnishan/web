@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aveti Learning - Three-Month Residential Program</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="camera-ui.css">
 </head>
 <body>
     <!-- Header -->
@@ -261,26 +262,58 @@
 
     <!-- Video Recording Modal -->
     <div id="videoModal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h2>Record Your Video</h2>
+        <div class="modal-content video-recorder-container">
+            <!-- Top Bar -->
+            <div class="camera-top-bar">
+                <button type="button" class="camera-btn camera-close-btn" id="cameraCloseBtn">
+                    <span>&times;</span>
+                </button>
+                <div class="recording-timer" id="recordingTimer" style="display: none;">
+                    <span id="timerDisplay">00:00</span>
+                </div>
+                <button type="button" class="camera-btn camera-flash-btn" id="cameraFlashBtn" style="display: none;">
+                    <span>⚡</span>
+                </button>
+            </div>
+
+            <!-- Camera Preview -->
             <div id="modalVideoPreview" class="modal-video-preview">
                 <video id="modalPreviewVideo" autoplay muted playsinline></video>
-                <div class="modal-video-controls">
-                    <button type="button" class="btn btn-record" id="modalStartRecordBtn">Start Recording</button>
-                    <button type="button" class="btn btn-stop" id="modalStopRecordBtn" style="display: none;">Stop Recording</button>
-                    <div class="recording-indicator" id="recordingIndicator" style="display: none;">
-                        <span class="recording-dot"></span>
-                        <span>Recording...</span>
-                    </div>
-                </div>
-                <div id="modalRecordedVideoContainer" style="display: none;">
+                
+                <!-- Recorded Video Preview -->
+                <div id="modalRecordedVideoContainer" class="recorded-video-container" style="display: none;">
                     <video id="modalRecordedVideo" controls></video>
-                    <div class="modal-video-actions">
-                        <button type="button" class="btn btn-primary" id="modalSubmitVideoBtn">Submit Video</button>
-                        <button type="button" class="btn btn-secondary" id="modalRetakeVideoBtn">Retake</button>
-                    </div>
                 </div>
+            </div>
+
+            <!-- Bottom Control Bar -->
+            <div class="camera-bottom-controls">
+                <button type="button" class="camera-btn camera-gallery-btn" id="cameraGalleryBtn" style="display: none;">
+                    <span>📷</span>
+                </button>
+                <button type="button" class="camera-btn camera-effects-btn" id="cameraEffectsBtn" style="display: none;">
+                    <span>✨</span>
+                </button>
+                
+                <!-- Main Record Button -->
+                <div class="record-button-container">
+                    <button type="button" class="camera-record-btn" id="modalStartRecordBtn">
+                        <span class="record-btn-inner"></span>
+                    </button>
+                    <button type="button" class="camera-stop-btn" id="modalStopRecordBtn" style="display: none;">
+                        <span class="stop-btn-inner"></span>
+                    </button>
+                </div>
+                
+                <button type="button" class="camera-btn camera-switch-btn" id="cameraSwitchBtn" style="display: none;">
+                    <span>🔄</span>
+                </button>
+            </div>
+
+            <!-- Video Actions (After Recording) -->
+            <div class="camera-video-actions" id="modalVideoActions" style="display: none;">
+                <button type="button" class="camera-action-btn camera-submit-btn" id="modalSubmitVideoBtn">Submit</button>
+                <button type="button" class="camera-action-btn camera-retake-btn" id="modalRetakeVideoBtn">Retake</button>
             </div>
         </div>
     </div>
