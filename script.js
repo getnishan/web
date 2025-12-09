@@ -366,6 +366,14 @@ function startRecording() {
             recordingTimerElement.style.visibility = 'hidden';
         }
         
+        // Hide the duplicate close button outside header during preview
+        const duplicateCloseBtn = document.querySelector('.video-recorder-container > .camera-close-btn-top');
+        if (duplicateCloseBtn) {
+            duplicateCloseBtn.style.display = 'none';
+            duplicateCloseBtn.style.visibility = 'hidden';
+            duplicateCloseBtn.style.opacity = '0';
+        }
+        
         // Show recorded video for preview
         if (modalRecordedVideo) {
             modalRecordedVideo.src = videoURL;
@@ -411,14 +419,28 @@ function startRecording() {
             modalRecordedVideoContainer.style.opacity = '1';
         }
         
-        // Show play/pause button
+        // Show play/pause button with play icon by default
         if (videoPlayPauseBtn) {
             videoPlayPauseBtn.style.display = 'flex';
-            // Show play icon initially
+            videoPlayPauseBtn.style.visibility = 'visible';
+            videoPlayPauseBtn.style.opacity = '1';
+            // Show play icon initially (video is paused by default)
             const playIcon = videoPlayPauseBtn.querySelector('.play-icon');
             const pauseIcon = videoPlayPauseBtn.querySelector('.pause-icon');
-            if (playIcon) playIcon.style.display = 'block';
-            if (pauseIcon) pauseIcon.style.display = 'none';
+            if (playIcon) {
+                playIcon.style.display = 'block';
+                playIcon.style.visibility = 'visible';
+            }
+            if (pauseIcon) {
+                pauseIcon.style.display = 'none';
+                pauseIcon.style.visibility = 'hidden';
+            }
+        }
+        
+        // Ensure video is paused initially
+        if (modalRecordedVideo) {
+            modalRecordedVideo.pause();
+            modalRecordedVideo.currentTime = 0;
         }
         
         // Show timeline
@@ -649,6 +671,14 @@ if (modalRetakeVideoBtn) {
         }
         if (recordingTimerElement) {
             recordingTimerElement.style.display = 'none'; // Keep hidden until recording starts
+        }
+        
+        // Show the duplicate close button again
+        const duplicateCloseBtn = document.querySelector('.video-recorder-container > .camera-close-btn-top');
+        if (duplicateCloseBtn) {
+            duplicateCloseBtn.style.display = 'flex';
+            duplicateCloseBtn.style.visibility = 'visible';
+            duplicateCloseBtn.style.opacity = '1';
         }
         
         // Hide timeline
