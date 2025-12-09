@@ -382,13 +382,27 @@ function startRecording() {
             
             // Update timeline when video metadata is loaded
             modalRecordedVideo.addEventListener('loadedmetadata', () => {
-                if (videoTotalTime) {
+                if (videoTotalTime && modalRecordedVideo.duration && !isNaN(modalRecordedVideo.duration)) {
                     videoTotalTime.textContent = formatTime(modalRecordedVideo.duration);
+                }
+                // Initial timeline update
+                if (modalRecordedVideo.readyState >= 1) {
+                    updateVideoTimeline();
                 }
             });
             
+            // Update timeline when video can play
+            modalRecordedVideo.addEventListener('canplay', () => {
+                if (videoTotalTime && modalRecordedVideo.duration && !isNaN(modalRecordedVideo.duration)) {
+                    videoTotalTime.textContent = formatTime(modalRecordedVideo.duration);
+                }
+                updateVideoTimeline();
+            });
+            
             // Update timeline as video plays
-            modalRecordedVideo.addEventListener('timeupdate', updateVideoTimeline);
+            modalRecordedVideo.addEventListener('timeupdate', () => {
+                updateVideoTimeline();
+            });
         }
         
         if (modalRecordedVideoContainer) {
@@ -411,6 +425,8 @@ function startRecording() {
         const timelineContainer = document.querySelector('.video-timeline-container');
         if (timelineContainer) {
             timelineContainer.style.display = 'block';
+            timelineContainer.style.visibility = 'visible';
+            timelineContainer.style.opacity = '1';
         }
         
         // Show close button for preview
@@ -841,20 +857,34 @@ function formatTime(seconds) {
 
 // Update video timeline
 function updateVideoTimeline() {
-    if (!modalRecordedVideo || !videoTimelineProgress || !videoCurrentTime) return;
+    if (!modalRecordedVideo) return;
     
-    const current = modalRecordedVideo.currentTime;
+    const current = modalRecordedVideo.currentTime || 0;
     const duration = modalRecordedVideo.duration;
     
+    // Always update current time display
+    if (videoCurrentTime && !isNaN(current) && current >= 0) {
+        videoCurrentTime.textContent = formatTime(current);
+    }
+    
+    // Update progress bar and handle if duration is available
     if (duration && !isNaN(duration) && duration > 0) {
-        const percent = (current / duration) * 100;
-        videoTimelineProgress.style.width = `${percent}%`;
+        const percent = Math.min(100, Math.max(0, (current / duration) * 100));
+        
+        if (videoTimelineProgress) {
+            videoTimelineProgress.style.width = `${percent}%`;
+        }
         
         if (videoTimelineHandle) {
             videoTimelineHandle.style.left = `${percent}%`;
         }
-        
-        videoCurrentTime.textContent = formatTime(current);
+    }
+    
+    // Update total time if available and not already set
+    if (videoTotalTime && duration && !isNaN(duration) && duration > 0) {
+        if (!videoTotalTime.textContent || videoTotalTime.textContent === '0:00') {
+            videoTotalTime.textContent = formatTime(duration);
+        }
     }
 }
 
