@@ -911,14 +911,29 @@ button.view-sample-link::before {
 
 /* Video Modal Specific Overrides */
 #videoModal {
-    background-color: #000;
-    backdrop-filter: none;
+    background-color: #000 !important;
+    backdrop-filter: none !important;
+    z-index: 2000 !important;
+    display: none;
+}
+
+#videoModal[style*="display: block"] {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
 }
 
 @media (max-width: 768px) {
     #videoModal {
         background-color: #000 !important;
         backdrop-filter: none !important;
+        z-index: 2000 !important;
+    }
+    
+    #videoModal[style*="display: block"] {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
     }
 }
 

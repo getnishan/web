@@ -159,10 +159,12 @@ async function startCamera() {
         if (modalPreviewVideo) {
             modalPreviewVideo.srcObject = mediaStream;
             modalPreviewVideo.style.display = 'block';
-            // Support portrait mode
-            modalPreviewVideo.style.objectFit = 'contain';
+            modalPreviewVideo.style.visibility = 'visible';
+            modalPreviewVideo.style.opacity = '1';
+            // Support full screen
+            modalPreviewVideo.style.objectFit = 'cover';
             modalPreviewVideo.style.width = '100%';
-            modalPreviewVideo.style.maxHeight = '70vh';
+            modalPreviewVideo.style.height = '100%';
             
             // Wait for video to be ready
             await new Promise((resolve, reject) => {
@@ -236,6 +238,7 @@ async function startCamera() {
         // Close modal on error
         if (videoModal) {
             videoModal.style.display = 'none';
+            document.body.style.overflow = '';
         }
     }
 }
@@ -553,7 +556,10 @@ if (modalRetakeVideoBtn) {
 
 // Close modal and cleanup
 function closeModalAndCleanup() {
-    videoModal.style.display = 'none';
+    if (videoModal) {
+        videoModal.style.display = 'none';
+        document.body.style.overflow = '';
+    }
     
     if (mediaStream) {
         mediaStream.getTracks().forEach(track => track.stop());
@@ -562,11 +568,34 @@ function closeModalAndCleanup() {
     
     if (modalPreviewVideo) {
         modalPreviewVideo.srcObject = null;
+        modalPreviewVideo.style.display = 'block';
+        modalPreviewVideo.style.visibility = 'visible';
     }
     
     if (recordingTimer) {
         clearTimeout(recordingTimer);
         recordingTimer = null;
+    }
+    
+    if (recordingTimeInterval) {
+        clearInterval(recordingTimeInterval);
+        recordingTimeInterval = null;
+    }
+    
+    if (timerDisplay) {
+        timerDisplay.textContent = '00:00';
+    }
+    
+    if (modalVideoActions) {
+        modalVideoActions.style.display = 'none';
+    }
+    
+    if (modalStopRecordBtn) {
+        modalStopRecordBtn.style.display = 'none';
+    }
+    
+    if (modalStartRecordBtn) {
+        modalStartRecordBtn.style.display = 'flex';
     }
     
     recordedChunks = [];
