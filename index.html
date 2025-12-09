@@ -285,7 +285,30 @@
                 
                 <!-- Recorded Video Preview -->
                 <div id="modalRecordedVideoContainer" class="recorded-video-container" style="display: none;">
-                    <video id="modalRecordedVideo" controls></video>
+                    <video id="modalRecordedVideo"></video>
+                    <!-- Close Button for Preview -->
+                    <button type="button" class="video-close-btn-preview" id="videoCloseBtnPreview">
+                        <span>&times;</span>
+                    </button>
+                    <!-- Play/Pause Button Overlay -->
+                    <button type="button" class="video-play-pause-overlay" id="videoPlayPauseBtn">
+                        <svg class="play-icon" width="60" height="60" viewBox="0 0 24 24" fill="white">
+                            <path d="M8 5v14l11-7z"/>
+                        </svg>
+                        <svg class="pause-icon" width="60" height="60" viewBox="0 0 24 24" fill="white" style="display: none;">
+                            <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
+                        </svg>
+                    </button>
+                    <!-- Video Timeline -->
+                    <div class="video-timeline-container">
+                        <div class="video-timeline">
+                            <div class="video-timeline-progress" id="videoTimelineProgress"></div>
+                            <div class="video-timeline-handle" id="videoTimelineHandle"></div>
+                        </div>
+                        <div class="video-time-display">
+                            <span id="videoCurrentTime">0:00</span> / <span id="videoTotalTime">0:00</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 

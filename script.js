@@ -69,8 +69,18 @@ const closeModal = document.getElementById('cameraCloseBtn');
 const modalPreviewVideo = document.getElementById('modalPreviewVideo');
 const modalStartRecordBtn = document.getElementById('modalStartRecordBtn');
 const modalStopRecordBtn = document.getElementById('modalStopRecordBtn');
+const recordButtonContainer = document.querySelector('.record-button-container');
 const modalRecordedVideo = document.getElementById('modalRecordedVideo');
 const modalRecordedVideoContainer = document.getElementById('modalRecordedVideoContainer');
+const videoPlayPauseBtn = document.getElementById('videoPlayPauseBtn');
+const videoCloseBtnPreview = document.getElementById('videoCloseBtnPreview');
+const videoRecorderHeader = document.querySelector('.video-recorder-header');
+const cameraTopBar = document.querySelector('.camera-top-bar');
+const recordingTimerElement = document.getElementById('recordingTimer');
+const videoTimelineProgress = document.getElementById('videoTimelineProgress');
+const videoTimelineHandle = document.getElementById('videoTimelineHandle');
+const videoCurrentTime = document.getElementById('videoCurrentTime');
+const videoTotalTime = document.getElementById('videoTotalTime');
 const modalSubmitVideoBtn = document.getElementById('modalSubmitVideoBtn');
 const modalRetakeVideoBtn = document.getElementById('modalRetakeVideoBtn');
 const recordingIndicator = document.getElementById('recordingTimer');
@@ -193,9 +203,15 @@ async function startCamera() {
             modalRecordedVideoContainer.style.display = 'none';
         }
         
+        // Show record button container
+        if (recordButtonContainer) {
+            recordButtonContainer.style.display = 'flex';
+        }
+        
         // Enable start recording button only after camera is ready
         if (modalStartRecordBtn) {
-            modalStartRecordBtn.style.display = 'inline-block';
+            modalStartRecordBtn.style.display = 'flex';
+            modalStartRecordBtn.style.visibility = 'visible';
             modalStartRecordBtn.disabled = false;
         }
         if (modalStopRecordBtn) {
@@ -270,11 +286,13 @@ function startRecording() {
     if (modalStartRecordBtn) {
         modalStartRecordBtn.style.display = 'none';
     }
-    if (recordingControls) {
-        recordingControls.style.display = 'flex';
+    if (modalStopRecordBtn) {
+        modalStopRecordBtn.style.display = 'flex';
     }
     if (recordingIndicator) {
         recordingIndicator.style.display = 'flex';
+        recordingIndicator.style.visibility = 'visible';
+        recordingIndicator.style.opacity = '1';
     }
     
     // Start timer
@@ -332,18 +350,72 @@ function startRecording() {
             modalPreviewVideo.style.display = 'none';
         }
         
-        // Show recorded video
+        // Hide header, subheading, and timer during preview with !important
+        if (videoRecorderHeader) {
+            videoRecorderHeader.style.display = 'none';
+            videoRecorderHeader.style.visibility = 'hidden';
+            videoRecorderHeader.style.opacity = '0';
+        }
+        if (cameraTopBar) {
+            cameraTopBar.style.display = 'none';
+            cameraTopBar.style.visibility = 'hidden';
+            cameraTopBar.style.opacity = '0';
+        }
+        if (recordingTimerElement) {
+            recordingTimerElement.style.display = 'none';
+            recordingTimerElement.style.visibility = 'hidden';
+        }
+        
+        // Show recorded video for preview
         if (modalRecordedVideo) {
             modalRecordedVideo.src = videoURL;
             modalRecordedVideo.style.display = 'block';
-            // Support portrait mode
-            modalRecordedVideo.style.objectFit = 'contain';
+            modalRecordedVideo.style.visibility = 'visible';
+            modalRecordedVideo.style.opacity = '1';
+            modalRecordedVideo.style.objectFit = 'cover';
             modalRecordedVideo.style.width = '100%';
-            modalRecordedVideo.style.maxHeight = '70vh';
+            modalRecordedVideo.style.height = '100%';
+            // Don't autoplay - user will control with play/pause button
+            modalRecordedVideo.autoplay = false;
+            modalRecordedVideo.loop = false;
+            modalRecordedVideo.muted = false;
+            
+            // Update timeline when video metadata is loaded
+            modalRecordedVideo.addEventListener('loadedmetadata', () => {
+                if (videoTotalTime) {
+                    videoTotalTime.textContent = formatTime(modalRecordedVideo.duration);
+                }
+            });
+            
+            // Update timeline as video plays
+            modalRecordedVideo.addEventListener('timeupdate', updateVideoTimeline);
         }
         
         if (modalRecordedVideoContainer) {
             modalRecordedVideoContainer.style.display = 'block';
+            modalRecordedVideoContainer.style.visibility = 'visible';
+            modalRecordedVideoContainer.style.opacity = '1';
+        }
+        
+        // Show play/pause button
+        if (videoPlayPauseBtn) {
+            videoPlayPauseBtn.style.display = 'flex';
+            // Show play icon initially
+            const playIcon = videoPlayPauseBtn.querySelector('.play-icon');
+            const pauseIcon = videoPlayPauseBtn.querySelector('.pause-icon');
+            if (playIcon) playIcon.style.display = 'block';
+            if (pauseIcon) pauseIcon.style.display = 'none';
+        }
+        
+        // Show timeline
+        const timelineContainer = document.querySelector('.video-timeline-container');
+        if (timelineContainer) {
+            timelineContainer.style.display = 'block';
+        }
+        
+        // Show close button for preview
+        if (videoCloseBtnPreview) {
+            videoCloseBtnPreview.style.display = 'flex';
         }
         
         // Stop timer
@@ -363,14 +435,19 @@ function startRecording() {
             timerDisplay.textContent = '00:00';
         }
         
-        // Hide record button (will show video actions instead)
+        // Hide record button container (will show video actions instead)
         if (modalStartRecordBtn) {
             modalStartRecordBtn.style.display = 'none';
+        }
+        if (recordButtonContainer) {
+            recordButtonContainer.style.display = 'none';
         }
         
         // Show video actions overlay
         if (modalVideoActions) {
             modalVideoActions.style.display = 'flex';
+            modalVideoActions.style.visibility = 'visible';
+            modalVideoActions.style.opacity = '1';
         }
     };
     
@@ -473,6 +550,9 @@ function stopRecording() {
         if (modalStopRecordBtn) {
             modalStopRecordBtn.style.display = 'none';
         }
+        if (recordButtonContainer) {
+            recordButtonContainer.style.display = 'flex';
+        }
         if (modalRecordedVideoContainer) {
             modalRecordedVideoContainer.style.display = 'none';
         }
@@ -530,6 +610,42 @@ if (modalRetakeVideoBtn) {
             modalVideoActions.style.display = 'none';
         }
         
+        // Hide play/pause button
+        if (videoPlayPauseBtn) {
+            videoPlayPauseBtn.style.display = 'none';
+        }
+        
+        // Hide close button for preview
+        if (videoCloseBtnPreview) {
+            videoCloseBtnPreview.style.display = 'none';
+        }
+        
+        // Show header and timer again
+        if (videoRecorderHeader) {
+            videoRecorderHeader.style.display = 'block';
+            videoRecorderHeader.style.visibility = 'visible';
+            videoRecorderHeader.style.opacity = '1';
+        }
+        if (cameraTopBar) {
+            cameraTopBar.style.display = 'block';
+            cameraTopBar.style.visibility = 'visible';
+            cameraTopBar.style.opacity = '1';
+        }
+        if (recordingTimerElement) {
+            recordingTimerElement.style.display = 'none'; // Keep hidden until recording starts
+        }
+        
+        // Hide timeline
+        const timelineContainer = document.querySelector('.video-timeline-container');
+        if (timelineContainer) {
+            timelineContainer.style.display = 'none';
+        }
+        
+        // Show record button container
+        if (recordButtonContainer) {
+            recordButtonContainer.style.display = 'flex';
+        }
+        
         // Show record button
         if (modalStartRecordBtn) {
             modalStartRecordBtn.style.display = 'flex';
@@ -551,6 +667,13 @@ if (modalRetakeVideoBtn) {
         }
         
         await startCamera();
+    });
+}
+
+// Close button for preview mode
+if (videoCloseBtnPreview) {
+    videoCloseBtnPreview.addEventListener('click', () => {
+        closeModalAndCleanup();
     });
 }
 
@@ -598,8 +721,161 @@ function closeModalAndCleanup() {
         modalStartRecordBtn.style.display = 'flex';
     }
     
+    if (recordButtonContainer) {
+        recordButtonContainer.style.display = 'flex';
+    }
+    
+    // Show header again
+    if (videoRecorderHeader) {
+        videoRecorderHeader.style.display = 'block';
+        videoRecorderHeader.style.visibility = 'visible';
+        videoRecorderHeader.style.opacity = '1';
+    }
+    
+    if (cameraTopBar) {
+        cameraTopBar.style.display = 'flex';
+        cameraTopBar.style.visibility = 'visible';
+        cameraTopBar.style.opacity = '1';
+    }
+    
+    // Hide play/pause button
+    if (videoPlayPauseBtn) {
+        videoPlayPauseBtn.style.display = 'none';
+    }
+    
+    // Hide close button for preview
+    if (videoCloseBtnPreview) {
+        videoCloseBtnPreview.style.display = 'none';
+    }
+    
+    // Hide timeline
+    const timelineContainer = document.querySelector('.video-timeline-container');
+    if (timelineContainer) {
+        timelineContainer.style.display = 'none';
+    }
+    
+    // Hide recorded video container
+    if (modalRecordedVideoContainer) {
+        modalRecordedVideoContainer.style.display = 'none';
+    }
+    
     recordedChunks = [];
     mediaRecorder = null;
+}
+
+// Play/Pause button handler
+if (videoPlayPauseBtn && modalRecordedVideo) {
+    // Click handler for play/pause button
+    videoPlayPauseBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const playIcon = videoPlayPauseBtn.querySelector('.play-icon');
+        const pauseIcon = videoPlayPauseBtn.querySelector('.pause-icon');
+        
+        if (modalRecordedVideo.paused) {
+            // Play video
+            modalRecordedVideo.play().then(() => {
+                if (playIcon) playIcon.style.display = 'none';
+                if (pauseIcon) pauseIcon.style.display = 'block';
+                // Hide button after a short delay when playing
+                setTimeout(() => {
+                    if (!modalRecordedVideo.paused) {
+                        videoPlayPauseBtn.style.opacity = '0';
+                    }
+                }, 500);
+            }).catch(err => {
+                console.log('Error playing video:', err);
+            });
+        } else {
+            // Pause video
+            modalRecordedVideo.pause();
+            if (playIcon) playIcon.style.display = 'block';
+            if (pauseIcon) pauseIcon.style.display = 'none';
+            videoPlayPauseBtn.style.opacity = '1';
+        }
+    });
+    
+    // Show play button when video is paused
+    modalRecordedVideo.addEventListener('pause', () => {
+        const playIcon = videoPlayPauseBtn.querySelector('.play-icon');
+        const pauseIcon = videoPlayPauseBtn.querySelector('.pause-icon');
+        if (playIcon) playIcon.style.display = 'block';
+        if (pauseIcon) pauseIcon.style.display = 'none';
+        videoPlayPauseBtn.style.opacity = '1';
+    });
+    
+    // Hide button when video is playing (after initial click)
+    modalRecordedVideo.addEventListener('play', () => {
+        setTimeout(() => {
+            if (!modalRecordedVideo.paused) {
+                videoPlayPauseBtn.style.opacity = '0';
+            }
+        }, 500);
+    });
+    
+    // Show play button when video ends
+    modalRecordedVideo.addEventListener('ended', () => {
+        const playIcon = videoPlayPauseBtn.querySelector('.play-icon');
+        const pauseIcon = videoPlayPauseBtn.querySelector('.pause-icon');
+        if (playIcon) playIcon.style.display = 'block';
+        if (pauseIcon) pauseIcon.style.display = 'none';
+        videoPlayPauseBtn.style.opacity = '1';
+    });
+    
+    // Allow clicking on video to play/pause
+    modalRecordedVideo.addEventListener('click', () => {
+        if (modalRecordedVideo.paused) {
+            modalRecordedVideo.play();
+        } else {
+            modalRecordedVideo.pause();
+        }
+    });
+}
+
+// Format time helper function
+function formatTime(seconds) {
+    if (isNaN(seconds) || seconds < 0) return '0:00';
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+}
+
+// Update video timeline
+function updateVideoTimeline() {
+    if (!modalRecordedVideo || !videoTimelineProgress || !videoCurrentTime) return;
+    
+    const current = modalRecordedVideo.currentTime;
+    const duration = modalRecordedVideo.duration;
+    
+    if (duration && !isNaN(duration) && duration > 0) {
+        const percent = (current / duration) * 100;
+        videoTimelineProgress.style.width = `${percent}%`;
+        
+        if (videoTimelineHandle) {
+            videoTimelineHandle.style.left = `${percent}%`;
+        }
+        
+        videoCurrentTime.textContent = formatTime(current);
+    }
+}
+
+// Timeline click handler
+if (videoTimelineProgress && modalRecordedVideo) {
+    const timelineContainer = document.querySelector('.video-timeline-container');
+    const timeline = document.querySelector('.video-timeline');
+    
+    if (timeline) {
+        timeline.addEventListener('click', (e) => {
+            if (!modalRecordedVideo.duration) return;
+            
+            const rect = timeline.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            const percent = (clickX / rect.width) * 100;
+            const newTime = (percent / 100) * modalRecordedVideo.duration;
+            
+            modalRecordedVideo.currentTime = Math.max(0, Math.min(newTime, modalRecordedVideo.duration));
+            updateVideoTimeline();
+        });
+    }
 }
 
 // Form submission
