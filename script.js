@@ -76,7 +76,12 @@ const modalRetakeVideoBtn = document.getElementById('modalRetakeVideoBtn');
 const recordingIndicator = document.getElementById('recordingTimer');
 const timerDisplay = document.getElementById('timerDisplay');
 const modalVideoActions = document.getElementById('modalVideoActions');
+const recordingControls = document.getElementById('recordingControls');
+const modalPauseRecordBtn = document.getElementById('modalPauseRecordBtn');
 let recordingTimeInterval = null;
+let isPaused = false;
+let pausedTime = 0;
+let totalPausedTime = 0;
 
 // Open modal and start camera
 if (recordVideoBtn) {
@@ -267,29 +272,40 @@ function startRecording() {
     if (modalStartRecordBtn) {
         modalStartRecordBtn.style.display = 'none';
     }
-    if (modalStopRecordBtn) {
-        modalStopRecordBtn.style.display = 'flex';
+    if (recordingControls) {
+        recordingControls.style.display = 'flex';
     }
     if (recordingIndicator) {
         recordingIndicator.style.display = 'flex';
     }
     
+    // Reset pause state
+    isPaused = false;
+    pausedTime = 0;
+    totalPausedTime = 0;
+    recordingStartTime = Date.now();
+    
     // Start timer
-    let seconds = 0;
     if (recordingTimeInterval) {
         clearInterval(recordingTimeInterval);
     }
     if (timerDisplay) {
-        timerDisplay.textContent = '00:00';
+        timerDisplay.textContent = '00:00:00';
     }
     recordingTimeInterval = setInterval(() => {
-        seconds++;
-        const mins = Math.floor(seconds / 60);
-        const secs = seconds % 60;
-        if (timerDisplay) {
-            timerDisplay.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+        if (!isPaused) {
+            const elapsed = Date.now() - recordingStartTime - totalPausedTime;
+            const totalSeconds = Math.floor(elapsed / 1000);
+            const hours = Math.floor(totalSeconds / 3600);
+            const mins = Math.floor((totalSeconds % 3600) / 60);
+            const secs = totalSeconds % 60;
+            if (timerDisplay) {
+                timerDisplay.textContent = `${String(hours).padStart(2, '0')}:${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+            }
+        } else {
+            pausedTime = Date.now();
         }
-    }, 1000);
+    }, 100);
     
     recordedChunks = [];
     
@@ -347,23 +363,31 @@ function startRecording() {
             recordingTimeInterval = null;
         }
         
-        if (modalStartRecordBtn) {
-            modalStartRecordBtn.style.display = 'flex';
-        }
-        if (modalStopRecordBtn) {
-            modalStopRecordBtn.style.display = 'none';
+        // Hide recording controls
+        if (recordingControls) {
+            recordingControls.style.display = 'none';
         }
         if (recordingIndicator) {
             recordingIndicator.style.display = 'none';
         }
         if (timerDisplay) {
-            timerDisplay.textContent = '00:00';
+            timerDisplay.textContent = '00:00:00';
         }
         
-        // Show video actions
+        // Hide record button (will show video actions instead)
+        if (modalStartRecordBtn) {
+            modalStartRecordBtn.style.display = 'none';
+        }
+        
+        // Show video actions overlay
         if (modalVideoActions) {
             modalVideoActions.style.display = 'flex';
         }
+        
+        // Reset pause state
+        isPaused = false;
+        pausedTime = 0;
+        totalPausedTime = 0;
     };
     
     recordingStartTime = Date.now();
@@ -376,8 +400,8 @@ function startRecording() {
         if (modalStartRecordBtn) {
             modalStartRecordBtn.style.display = 'flex';
         }
-        if (modalStopRecordBtn) {
-            modalStopRecordBtn.style.display = 'none';
+        if (recordingControls) {
+            recordingControls.style.display = 'none';
         }
         if (recordingIndicator) {
             recordingIndicator.style.display = 'none';
@@ -387,8 +411,11 @@ function startRecording() {
             recordingTimeInterval = null;
         }
         if (timerDisplay) {
-            timerDisplay.textContent = '00:00';
+            timerDisplay.textContent = '00:00:00';
         }
+        isPaused = false;
+        pausedTime = 0;
+        totalPausedTime = 0;
         alert('Failed to start recording. Please try again.');
         return;
     }
@@ -403,6 +430,29 @@ function startRecording() {
 if (modalStopRecordBtn) {
     modalStopRecordBtn.addEventListener('click', () => {
         stopRecording();
+    });
+}
+
+// Pause recording
+if (modalPauseRecordBtn) {
+    modalPauseRecordBtn.addEventListener('click', () => {
+        if (isPaused) {
+            // Resume recording
+            if (mediaRecorder && mediaRecorder.state === 'paused') {
+                mediaRecorder.resume();
+            }
+            totalPausedTime += Date.now() - pausedTime;
+            isPaused = false;
+            modalPauseRecordBtn.querySelector('.pause-icon').textContent = '⏸';
+        } else {
+            // Pause recording
+            if (mediaRecorder && mediaRecorder.state === 'recording') {
+                mediaRecorder.pause();
+            }
+            pausedTime = Date.now();
+            isPaused = true;
+            modalPauseRecordBtn.querySelector('.pause-icon').textContent = '▶';
+        }
     });
 }
 
@@ -425,12 +475,17 @@ function stopRecording() {
     }
     
     if (timerDisplay) {
-        timerDisplay.textContent = '00:00';
+        timerDisplay.textContent = '00:00:00';
     }
     
-    // Immediately update button state
-    if (modalStopRecordBtn) {
-        modalStopRecordBtn.style.display = 'none';
+    // Reset pause state
+    isPaused = false;
+    pausedTime = 0;
+    totalPausedTime = 0;
+    
+    // Hide recording controls
+    if (recordingControls) {
+        recordingControls.style.display = 'none';
     }
     if (recordingIndicator) {
         recordingIndicator.style.display = 'none';
@@ -462,12 +517,24 @@ function stopRecording() {
         if (modalStartRecordBtn) {
             modalStartRecordBtn.style.display = 'flex';
         }
+        if (recordingControls) {
+            recordingControls.style.display = 'none';
+        }
         if (modalRecordedVideoContainer) {
             modalRecordedVideoContainer.style.display = 'none';
         }
         if (modalVideoActions) {
             modalVideoActions.style.display = 'none';
         }
+        if (recordingIndicator) {
+            recordingIndicator.style.display = 'none';
+        }
+        if (timerDisplay) {
+            timerDisplay.textContent = '00:00:00';
+        }
+        isPaused = false;
+        pausedTime = 0;
+        totalPausedTime = 0;
     }
 }
 
@@ -513,10 +580,25 @@ if (modalRetakeVideoBtn) {
             modalVideoActions.style.display = 'none';
         }
         
+        // Show record button
+        if (modalStartRecordBtn) {
+            modalStartRecordBtn.style.display = 'flex';
+        }
+        
+        // Hide recording controls
+        if (recordingControls) {
+            recordingControls.style.display = 'none';
+        }
+        
         // Reset timer
         if (timerDisplay) {
-            timerDisplay.textContent = '00:00';
+            timerDisplay.textContent = '00:00:00';
         }
+        
+        // Reset pause state
+        isPaused = false;
+        pausedTime = 0;
+        totalPausedTime = 0;
         
         // Restart camera
         if (modalPreviewVideo) {
