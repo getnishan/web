@@ -260,22 +260,19 @@
         </div>
     </footer>
 
-    <!-- Video Recording Instruction Modal -->
-    <div id="videoInstructionModal" class="modal">
-        <div class="modal-content instruction-modal-content">
-            <span class="close-modal" id="closeInstructionModal">&times;</span>
-            <h2 class="instruction-modal-title">Record Your Video</h2>
-            <p class="instruction-modal-subtitle">Record a short video (30-45 seconds) explaining why you want to join our program and what makes you a great candidate.</p>
-            <div class="instruction-modal-actions">
-                <button type="button" class="btn btn-primary" id="startRecordingBtn">Start Recording</button>
-            </div>
-        </div>
-    </div>
-
     <!-- Video Recording Modal -->
     <div id="videoModal" class="modal">
         <div class="modal-content video-recorder-container">
-            <!-- Top Bar - Recording Timer (iPhone Style) -->
+            <!-- Header with Heading and Subheading -->
+            <div class="video-recorder-header">
+                <button type="button" class="camera-close-btn-top" id="cameraCloseBtn">
+                    <span>&times;</span>
+                </button>
+                <h2 class="video-recorder-title">Record Your Video</h2>
+                <p class="video-recorder-subtitle">Record a short video (30-45 seconds) explaining why you want to join our program.<br>Share what makes you a great candidate for this opportunity.</p>
+            </div>
+
+            <!-- Top Bar - Recording Timer -->
             <div class="camera-top-bar">
                 <div class="recording-timer-box" id="recordingTimer" style="display: none;">
                     <span id="timerDisplay">00:00</span>

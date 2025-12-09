@@ -78,40 +78,11 @@ const timerDisplay = document.getElementById('timerDisplay');
 const modalVideoActions = document.getElementById('modalVideoActions');
 let recordingTimeInterval = null;
 
-// Video Instruction Modal
-const videoInstructionModal = document.getElementById('videoInstructionModal');
-const closeInstructionModal = document.getElementById('closeInstructionModal');
-const startRecordingBtn = document.getElementById('startRecordingBtn');
-
-// Open instruction modal when Record Video is clicked
+// Open video recording modal when Record Video is clicked
 if (recordVideoBtn) {
-    recordVideoBtn.addEventListener('click', () => {
-        videoInstructionModal.style.display = 'block';
-    });
-}
-
-// Close instruction modal
-if (closeInstructionModal) {
-    closeInstructionModal.addEventListener('click', () => {
-        videoInstructionModal.style.display = 'none';
-    });
-}
-
-// Start recording from instruction modal
-if (startRecordingBtn) {
-    startRecordingBtn.addEventListener('click', async () => {
-        videoInstructionModal.style.display = 'none';
+    recordVideoBtn.addEventListener('click', async () => {
         videoModal.style.display = 'block';
         await startCamera();
-    });
-}
-
-// Close instruction modal when clicking outside
-if (videoInstructionModal) {
-    videoInstructionModal.addEventListener('click', (e) => {
-        if (e.target === videoInstructionModal) {
-            videoInstructionModal.style.display = 'none';
-        }
     });
 }
 
