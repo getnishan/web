@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'] ?? '';
     
     // Default password - CHANGE THIS IN PRODUCTION
-    $admin_password = 'admin123'; // TODO: Change this to a secure password
+    $admin_password = 'Elevateav577'; // TODO: Change this to a secure password
     
     if ($password === $admin_password) {
         $_SESSION['admin_logged_in'] = true;

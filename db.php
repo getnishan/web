@@ -7,9 +7,9 @@
 // Database configuration
 // Update these values according to your Hostinger database settings
 define('DB_HOST', 'localhost');
-define('DB_USER', 'your_database_username');
-define('DB_PASS', 'your_database_password');
-define('DB_NAME', 'your_database_name');
+define('DB_USER', 'nishan');
+define('DB_PASS', 'Avetibnm577');
+define('DB_NAME', 'elevateten_db');
 
 /**
  * Create database connection

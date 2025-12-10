@@ -1,0 +1,65 @@
+================================================================================
+VIDEO THUMBNAIL SETUP INSTRUCTIONS
+================================================================================
+
+DUMMY PLACEHOLDER IMAGES ARE ALREADY CREATED:
+- video-thumbnail-desktop.svg (currently showing placeholder)
+- video-thumbnail-mobile.svg (currently showing placeholder)
+
+You can replace these with your actual thumbnail images:
+
+1. DESKTOP THUMBNAIL:
+   - Current file: video-thumbnail-desktop.svg (placeholder)
+   - Replace with: video-thumbnail-desktop.jpg (or keep .svg)
+   - Recommended size: 1280x720 pixels (16:9 aspect ratio)
+   - Location: Same directory as index.html
+   - Format: JPG, PNG, WebP, or SVG
+
+2. MOBILE THUMBNAIL:
+   - Current file: video-thumbnail-mobile.svg (placeholder)
+   - Replace with: video-thumbnail-mobile.jpg (or keep .svg)
+   - Recommended size: 720x1280 pixels (9:16 aspect ratio - portrait)
+   - Location: Same directory as index.html
+   - Format: JPG, PNG, WebP, or SVG
+
+================================================================================
+HOW TO REPLACE THUMBNAILS:
+================================================================================
+
+OPTION 1 - Replace the SVG files:
+1. Delete or rename the current .svg files
+2. Add your new images with the same names:
+   - video-thumbnail-desktop.jpg (or .png, .webp)
+   - video-thumbnail-mobile.jpg (or .png, .webp)
+3. Update index.html if you change the file extension
+
+OPTION 2 - Keep SVG format:
+1. Edit video-thumbnail-desktop.svg and video-thumbnail-mobile.svg
+2. Replace the SVG content with your image data or design
+
+The placeholder images will work until you replace them!
+
+================================================================================
+VIDEO FUNCTIONALITY:
+================================================================================
+
+- Clicking the video placeholder opens: https://youtube.com/shorts/DZuTtk-etRs
+- Video opens in a new tab/window
+- Thumbnail images are clickable
+- Play button overlay is visible on top
+
+================================================================================
+FAVICON:
+================================================================================
+
+- File name: favicon.ico
+- Location: Same directory as index.html
+- Recommended size: 32x32 or 16x16 pixels
+- Format: ICO, PNG, or SVG
+
+You can create a favicon using online tools like:
+- https://favicon.io/
+- https://realfavicongenerator.net/
+
+================================================================================
+

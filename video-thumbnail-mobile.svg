@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="1280" viewBox="0 0 720 1280">
+  <rect width="720" height="1280" fill="#374151"/>
+  <text x="360" y="600" font-family="Arial, sans-serif" font-size="36" font-weight="bold" fill="#9CA3AF" text-anchor="middle" dominant-baseline="middle">Mobile Thumbnail</text>
+  <text x="360" y="660" font-family="Arial, sans-serif" font-size="20" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">720 x 1280</text>
+  <text x="360" y="700" font-family="Arial, sans-serif" font-size="18" fill="#4B5563" text-anchor="middle" dominant-baseline="middle">Replace with your image</text>
+</svg>
+

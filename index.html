@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aveti Learning - Three-Month Residential Program</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="camera-ui.css">
 </head>
@@ -40,11 +42,26 @@
             <span class="section-label scroll-float">PROGRAM STORY</span>
             <h2 class="section-title scroll-float">Watch Program Overview</h2>
             <div class="video-container scroll-float">
-                <div class="video-placeholder">
-                    <div class="play-button">▶</div>
+                <div class="video-placeholder" id="programVideoPlaceholder">
+                    <!-- Desktop Thumbnail (Replace video-thumbnail-desktop.svg with your image) -->
+                    <img src="video-thumbnail-desktop.svg" alt="Program Overview Video" class="video-thumbnail desktop-thumbnail" onerror="this.src='https://via.placeholder.com/1280x720/374151/9CA3AF?text=Desktop+Thumbnail'">
+                    <!-- Mobile Thumbnail (Replace video-thumbnail-mobile.svg with your image) -->
+                    <img src="video-thumbnail-mobile.svg" alt="Program Overview Video" class="video-thumbnail mobile-thumbnail" onerror="this.src='https://via.placeholder.com/720x1280/374151/9CA3AF?text=Mobile+Thumbnail'">
+                    <div class="play-button" id="programVideoPlayBtn">▶</div>
                     <div class="video-overlay-text">
                         <h3 class="video-overlay-title">Watch Program Overview</h3>
                         <p class="video-overlay-description">Discover how our residential training program transforms graduates into industry-ready professionals.</p>
+                    </div>
+                    <!-- YouTube Video Embed (Hidden initially) -->
+                    <div class="youtube-video-embed" id="programVideoEmbed" style="display: none;">
+                        <iframe 
+                            id="programVideoIframe"
+                            src="" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                        <button class="close-video-btn" id="closeProgramVideoBtn">&times;</button>
                     </div>
                 </div>
             </div>

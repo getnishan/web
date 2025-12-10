@@ -1028,6 +1028,64 @@ function showError(message) {
     document.getElementById('successMessage').style.display = 'none';
 }
 
+// Program Overview Video - Embedded YouTube Player
+document.addEventListener('DOMContentLoaded', () => {
+    const programVideoPlaceholder = document.getElementById('programVideoPlaceholder');
+    const programVideoPlayBtn = document.getElementById('programVideoPlayBtn');
+    const programVideoEmbed = document.getElementById('programVideoEmbed');
+    const programVideoIframe = document.getElementById('programVideoIframe');
+    const closeProgramVideoBtn = document.getElementById('closeProgramVideoBtn');
+    
+    // YouTube Shorts URL: https://youtube.com/shorts/DZuTtk-etRs
+    // Convert to embed format: https://www.youtube.com/embed/DZuTtk-etRs?autoplay=1
+    const youtubeVideoId = 'DZuTtk-etRs';
+    const youtubeEmbedUrl = `https://www.youtube.com/embed/${youtubeVideoId}?autoplay=1&rel=0`;
+    
+    // Show video when play button is clicked
+    if (programVideoPlayBtn && programVideoEmbed && programVideoIframe) {
+        programVideoPlayBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            // Hide thumbnail and overlay
+            const thumbnails = programVideoPlaceholder.querySelectorAll('.video-thumbnail');
+            const overlayText = programVideoPlaceholder.querySelector('.video-overlay-text');
+            const playBtn = programVideoPlaceholder.querySelector('.play-button');
+            
+            thumbnails.forEach(img => img.style.display = 'none');
+            if (overlayText) overlayText.style.display = 'none';
+            if (playBtn) playBtn.style.display = 'none';
+            
+            // Show and load YouTube embed
+            programVideoEmbed.style.display = 'block';
+            programVideoIframe.src = youtubeEmbedUrl;
+        });
+    }
+    
+    // Close video when close button is clicked
+    if (closeProgramVideoBtn && programVideoEmbed && programVideoIframe) {
+        closeProgramVideoBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            // Stop video by removing src
+            programVideoIframe.src = '';
+            programVideoEmbed.style.display = 'none';
+            
+            // Show thumbnail and overlay again
+            const thumbnails = programVideoPlaceholder.querySelectorAll('.video-thumbnail');
+            const overlayText = programVideoPlaceholder.querySelector('.video-overlay-text');
+            const playBtn = programVideoPlaceholder.querySelector('.play-button');
+            
+            thumbnails.forEach(img => {
+                if (img.classList.contains('desktop-thumbnail')) {
+                    img.style.display = window.innerWidth > 768 ? 'block' : 'none';
+                } else if (img.classList.contains('mobile-thumbnail')) {
+                    img.style.display = window.innerWidth <= 768 ? 'block' : 'none';
+                }
+            });
+            if (overlayText) overlayText.style.display = 'block';
+            if (playBtn) playBtn.style.display = 'flex';
+        });
+    }
+});
+
 // Close application form modal
 document.addEventListener('DOMContentLoaded', () => {
     const applicationFormModal = document.getElementById('applicationFormModal');
